@@ -1,15 +1,14 @@
 import { useState } from 'react';
 import { Button, Navbar, Container, Nav, NavDropdown, Form, Row, Col } from 'react-bootstrap';
 import './App.css';
-import {data, shoeImg} from './data.js';
+import data from './data.js';
 import {Product, MainPage} from './component.js';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
 import Detail from './Detail.js';
 
 function App() {
 
-  let [shoes] = useState(data);
-  let [shoeI] = useState(shoeImg);
+  let [shoes,setShoes] = useState(data);
   let navigate = useNavigate();
 
   return <div className="App">
@@ -51,17 +50,25 @@ function App() {
           </Form>
         </Navbar.Collapse>
       </Container>
-    </Navbar>
+    </Navbar><button onClick={()=>{
+      let copy = [...shoes];
+      copy.sort(function (a, b) {
+        if(a.title > b.title) return 1;
+        if(a.title < b.title) return -1;
+        return 0;
+      });
+      setShoes(copy);
+    }}>가나다순 정렬</button>
     <Routes>
       <Route path="/" element={
-        <MainPage shoes={shoes} shoeI={shoeI}></MainPage>
+        <MainPage shoes={shoes}>
+        </MainPage>
       } />
       <Route path="/detail/:id" element={<Detail shoes={shoes} />} />
       <Route path="/about" element={<About />}>
         <Route path="member" element={<div>멤버임</div>} />
         <Route path="location" element={<div>위치정보임</div>} />
       </Route>
-      
       <Route path="*" element={<div>없는페이지요</div>}/>
     </Routes>
     

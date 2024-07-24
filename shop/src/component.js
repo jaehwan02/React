@@ -3,7 +3,7 @@ import { Button, Navbar, Container, Nav, NavDropdown, Form, Row, Col } from 'rea
 function Product(props) {
   return (
     <Col>
-      <img src={props.shoeI} width="80%"/>
+      <img src={props.shoes.imgUrl} width="80%"/>
       <h4>{props.shoes.title}</h4>
       <p>{props.shoes.content}</p>
     </Col>
@@ -18,7 +18,7 @@ function MainPage(props) {
         <Row> {
           props.shoes.map (function (a, i) {
             return (
-              <Product shoes = {props.shoes[i]} shoeI = {props.shoeI[i]}/>
+              <Product shoes = {props.shoes[i]} />
             )})}
         </Row>
       </Container>
