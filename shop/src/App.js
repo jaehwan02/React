@@ -7,7 +7,6 @@ import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
 import Detail from './Detail.js';
 
 function App() {
-
   let [shoes,setShoes] = useState(data);
   let navigate = useNavigate();
 
