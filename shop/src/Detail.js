@@ -1,12 +1,29 @@
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+
+
 
 function Detail(props) {
 
   let {id} = useParams();
   let findShoes = props.shoes.find((x) => {return x.id == id});
+  let [alert, setAlert] = useState(true);
+  let [count, setCount] = useState(0);
+
+  useEffect(()=> {
+    setTimeout(()=> {
+      setAlert(false);
+    }, 2000)
+  })
 
   return (
     <div className="container">
+      <div>
+        {alert ? '2초이내 구매시 할인' : null}
+      </div>
+      {count}
+      <button onClick={()=>{setCount(count+1)}}>버튼</button>
+      
       <div className="row">
         <div className="col-md-6">
           <img src={findShoes.imgUrl} width="100%" />
