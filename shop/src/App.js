@@ -60,10 +60,11 @@ function App() {
     }}>가나다순 정렬</button>
     <Routes>
       <Route path="/" element={
-        <MainPage shoes={shoes}>
+        <MainPage shoes={shoes} setShoes={setShoes}>
         </MainPage>
       } />
       <Route path="/detail/:id" element={<Detail shoes={shoes} />} />
+
       <Route path="/about" element={<About />}>
         <Route path="member" element={<div>멤버임</div>} />
         <Route path="location" element={<div>위치정보임</div>} />
