@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Nav } from "react-bootstrap";
+import { changeCount, addItem } from '../store';
+import { useDispatch, useSelector } from 'react-redux';
 
 function Detail(props) {
 
@@ -10,6 +12,7 @@ function Detail(props) {
   let [count, setCount] = useState(0);
   let [탭, 탭변경] = useState(0);
   let [새창, 새창변경] = useState('');
+  let dispatch = useDispatch()
 
   useEffect(()=> {
     setTimeout(()=> {
@@ -42,7 +45,7 @@ function Detail(props) {
           <h4 className="pt-5">{findShoes.title}</h4>
           <p>{findShoes.content}</p>
           <p>{findShoes.price}원</p>
-          <button className="btn btn-danger">주문하기</button> 
+          <button className="btn btn-danger" onClick={()=>{dispatch(addItem(findShoes))}}>주문하기</button> 
         </div>
       </div>
 
