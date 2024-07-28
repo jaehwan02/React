@@ -4,7 +4,7 @@ import './App.css';
 import data from './data.js';
 import {Product, MainPage} from './component.js';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
-import Detail from './Detail.js';
+import Detail from './detail.js';
 
 function App() {
   let [shoes,setShoes] = useState(data);
