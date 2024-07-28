@@ -3,8 +3,13 @@ import { useParams } from "react-router-dom";
 import { Nav } from "react-bootstrap";
 import { changeCount, addItem } from '../store';
 import { useDispatch, useSelector } from 'react-redux';
+import { useLike } from "../hooks/like";
+import { useUsername } from "../hooks/name";
+import axios from 'axios';
 
 function Detail(props) {
+
+  let [like, addLike] = useLike()
 
   let {id} = useParams();
   let findShoes = props.shoes.find((x) => {return x.id == id});
@@ -13,8 +18,14 @@ function Detail(props) {
   let [탭, 탭변경] = useState(0);
   let [새창, 새창변경] = useState('');
   let dispatch = useDispatch()
-
   useEffect(()=> {
+
+    var arr = JSON.parse(localStorage.getItem('watched'));
+    arr.push(id);
+    arr = new Set(arr)
+    arr = Array.from(arr)
+    localStorage.setItem('watched', JSON.stringify(arr));
+
     setTimeout(()=> {
       setAlert(false);
     }, 2000)
@@ -29,6 +40,7 @@ function Detail(props) {
 
   },[])
 
+
   return (
     <div className={'container start ' + 새창}>
       <div>
@@ -42,6 +54,10 @@ function Detail(props) {
           <img src={'https://codingapple1.github.io/shop/shoes' + (findShoes.id + 1) + '.jpg'} width="100%" />
         </div>
         <div className="col-md-6">
+          {useUsername().name}
+          {like} <span onClick={()=>{ addLike()
+          }}>❤️</span>
+
           <h4 className="pt-5">{findShoes.title}</h4>
           <p>{findShoes.content}</p>
           <p>{findShoes.price}원</p>

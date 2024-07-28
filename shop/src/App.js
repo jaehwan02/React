@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button, Navbar, Container, Nav, NavDropdown, Form, Row, Col } from 'react-bootstrap';
 import './App.css';
 import data from './data.js';
@@ -6,10 +6,19 @@ import {Product, MainPage} from './component.js';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
 import Detail from './routes/Detail.js';
 import Cart from './routes/Cart.js';
+import axios from 'axios';
+import { useQuery } from 'react-query';
 
 function App() {
+
   let [shoes,setShoes] = useState(data);
   let navigate = useNavigate();
+
+  let result = useQuery('작명', ()=>{
+    return axios.get('https://codingapple1.github.io/userdata.json').then((a)=>{
+      return a.data
+    })
+  })
 
   return <div className="App">
 
@@ -49,6 +58,11 @@ function App() {
             <Button variant="outline-success">Search</Button>
           </Form>
         </Navbar.Collapse>
+        <Nav className='ms-auto'>
+          { result.isLoading && '로딩중' }
+          { result.error && '로딩중' }
+          { result.data && result.data.name }
+        </Nav>
       </Container>
     </Navbar><button onClick={()=>{
       let copy = [...shoes];

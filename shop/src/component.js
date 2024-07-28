@@ -1,11 +1,14 @@
 import { Button, Navbar, Container, Nav, NavDropdown, Form, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
 import { useState } from 'react';
+import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
 
 function Product(props) {
+  let navigate = useNavigate();
+
   return (
     <Col>
-      <img src={'https://codingapple1.github.io/shop/shoes' + (props.shoes.id + 1) + '.jpg'} width="80%"/>
+      <img src={'https://codingapple1.github.io/shop/shoes' + (props.shoes.id + 1) + '.jpg'} onClick={()=>{navigate('/detail/' + (props.shoes.id))}} width="80%"/>
       <h4>{props.shoes.title}</h4>
       <p>{props.shoes.content}</p>
     </Col>
